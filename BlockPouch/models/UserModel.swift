@@ -13,15 +13,15 @@ class UserModel: ObservableObject {
     @Attribute(.unique) var id: UUID
     @Attribute(.unique) var email: String
     var name: String
-    var pouch: PouchModel
+    var pouch: PouchModel?
     var loggedIn: Bool
     
     
-    init(id: UUID, name: String, email: String, pouch: PouchModel, loggedIn: Bool) {
+    init(id: UUID, name: String, email: String, loggedIn: Bool) {
         self.id = id
         self.name = name
         self.email = email
-        self.pouch = pouch
+        self.pouch = PouchModel(userID: id)
         self.loggedIn = loggedIn
     }
 }

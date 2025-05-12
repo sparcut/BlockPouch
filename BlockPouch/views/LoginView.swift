@@ -16,6 +16,15 @@ struct LoginView: View {
     
     var body: some View {
         VStack {
+            HStack {
+                Image(systemName: "bitcoinsign.circle")
+                    .resizable()
+                    .scaledToFit()
+                Image(systemName: "p.circle")
+                    .resizable()
+                    .scaledToFit()
+            }
+            .frame(height: 50.0)
             Text("BlockPouch")
                 .font(.largeTitle)
                 .bold()
@@ -29,9 +38,11 @@ struct LoginView: View {
             }
             .buttonStyle(.borderedProminent)
         }
+        .padding(.horizontal, 20.0)
     }
 }
 
 #Preview {
     LoginView()
 }
+	

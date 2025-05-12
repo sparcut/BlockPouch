@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import SwiftData
 
+@Model
 class OwnedCoinModel {
-    let coin: CoinModel
+    var coin: CoinModel
     var amount: Double
     var transactions: [TransactionModel]
     

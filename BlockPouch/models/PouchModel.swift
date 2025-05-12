@@ -10,11 +10,16 @@ import SwiftData
 
 @Model
 class PouchModel {
+    var userID: UUID
     var coins: [OwnedCoinModel]
-    var transactions: [TransactionModel]
     
-    init(coins: [OwnedCoinModel], transactions: [TransactionModel]) {
+    init(userID: UUID, coins: [OwnedCoinModel]) {
+        self.userID = userID
         self.coins = coins
-        self.transactions = transactions
+    }
+    
+    init(userID: UUID) {
+        self.userID = userID
+        self.coins = []
     }
 }

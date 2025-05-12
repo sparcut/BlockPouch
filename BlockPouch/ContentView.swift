@@ -9,13 +9,25 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
+    var modelContainer: ModelContainer = {
+        let schema = Schema(
+            [
+                UserModel.self,
+                CoinModel.self,
+                OwnedCoinModel.self,
+                TransactionModel.self,
+                PouchModel.self,
+            ]
+        )
+        let config = ModelConfiguration(schema: schema)
+        return try! ModelContainer(for: schema, configurations: [config])
+    }()
     @StateObject private var navController: NavigationController = NavigationController()
     @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
     
     var body: some View {
         if(isLoggedIn) {
-            MainView()
+            MainView().modelContainer(modelContainer)
         } else {
             LoginView()
         }

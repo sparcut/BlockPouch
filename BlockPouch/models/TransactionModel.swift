@@ -8,14 +8,14 @@
 import Foundation
 import SwiftData
 
-enum TransactionType {
+enum TransactionType: String, Codable {
     case Buy
     case Sell
     case TransferIn
     case TransferOut
 }
 
-enum TransactionStatus {
+enum TransactionStatus: String, Codable {
     case Draft
     case Completed
 }

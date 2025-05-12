@@ -6,10 +6,12 @@
 //
 
 import Foundation
+import SwiftData
 
+@Model
 class CoinModel {
-    let assetId: String
-    let name: String
+    var assetId: String
+    var name: String
     var priceUSD: Double
     var priceDate: Date
     

@@ -24,13 +24,14 @@ struct MainView: View {
             
             PouchView()
                 .tabItem {
-                    Label("Pouch", systemImage: "wallet.pass.fill")
+                    Label("Pouch", systemImage: "handbag.fill")
                 }
             
             ProfileView()
                 .tabItem {
-                    Label("Pouch", systemImage: "person.crop.circle")
+                    Label("Profile", systemImage: "person.crop.circle")
                 }
         }
     }
 }
+		
