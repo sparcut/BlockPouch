@@ -22,7 +22,6 @@ struct ContentView: View {
         let config = ModelConfiguration(schema: schema)
         return try! ModelContainer(for: schema, configurations: [config])
     }()
-    @StateObject private var navController: NavigationController = NavigationController()
     @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
     
     var body: some View {
