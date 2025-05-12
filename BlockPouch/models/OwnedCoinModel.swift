@@ -19,4 +19,12 @@ class OwnedCoinModel {
         self.amount = amount
         self.transactions = transactions
     }
+    
+    func getPriceUSD() -> Double {
+        return coin.priceUSD * amount
+    }
+    
+    func getPriceChanged24h() -> Double {
+        return amount * coin.changeLast24h
+    }
 }
