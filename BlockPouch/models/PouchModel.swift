@@ -6,3 +6,14 @@
 //
 
 import Foundation
+import SwiftData
+
+@Model
+class PouchModel {
+    var coins: [OwnedCoinModel] = []
+    var transactions: [TransactionModel] = []
+    
+    init() {
+        
+    }
+}

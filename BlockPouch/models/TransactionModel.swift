@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftData
 
 enum TransactionType {
     case Buy
@@ -19,14 +20,19 @@ enum TransactionStatus {
     case Completed
 }
 
+@Model
 class TransactionModel {
-    let coin: CoinModel
-    let type: TransactionType
+    private(set) var coin: CoinModel
+    private(set) var type: TransactionType
     var status: TransactionStatus
+    var quantity: Double
+    var priceUSD: Double
     
-    init(coin: CoinModel, type: TransactionType, status: TransactionStatus) {
+    init(coin: CoinModel, type: TransactionType, status: TransactionStatus, quantity: Double, priceUSD: Double) {
         self.coin = coin
         self.type = type
         self.status = status
+        self.quantity = quantity
+        self.priceUSD = priceUSD
     }
 }
