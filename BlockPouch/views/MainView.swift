@@ -11,6 +11,26 @@ import SwiftUI
 struct MainView: View {
     
     var body: some View {
-        Text("Stub")
+        TabView {
+            DashboardView()
+                .tabItem {
+                    Label("Dashboard", systemImage: "chart.bar.fill")
+                }
+            
+            MarketView()
+                .tabItem {
+                    Label("Dashboard", systemImage: "bitcoinsign.circle")
+                }
+            
+            PouchView()
+                .tabItem {
+                    Label("Pouch", systemImage: "wallet.pass.fill")
+                }
+            
+            ProfileView()
+                .tabItem {
+                    Label("Pouch", systemImage: "person.crop.circle")
+                }
+        }
     }
 }
