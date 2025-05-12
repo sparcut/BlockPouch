@@ -10,10 +10,11 @@ import SwiftData
 
 @Model
 class PouchModel {
-    var coins: [OwnedCoinModel] = []
-    var transactions: [TransactionModel] = []
+    var coins: [OwnedCoinModel]
+    var transactions: [TransactionModel]
     
-    init() {
-        
+    init(coins: [OwnedCoinModel], transactions: [TransactionModel]) {
+        self.coins = coins
+        self.transactions = transactions
     }
 }

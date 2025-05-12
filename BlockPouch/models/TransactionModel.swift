@@ -22,8 +22,8 @@ enum TransactionStatus {
 
 @Model
 class TransactionModel {
-    private(set) var coin: CoinModel
-    private(set) var type: TransactionType
+    var coin: CoinModel
+    var type: TransactionType
     var status: TransactionStatus
     var quantity: Double
     var priceUSD: Double
