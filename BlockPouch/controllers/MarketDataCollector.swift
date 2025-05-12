@@ -72,4 +72,8 @@ class MarketDataController: ObservableObject {
             ]
         }
     }
+    
+    func fetchDataAsync() async {
+        fetchData()
+    }
 }

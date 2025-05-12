@@ -31,6 +31,9 @@ struct MainView: View {
                 .tabItem {
                     Label("Profile", systemImage: "person.crop.circle")
                 }
+        }	
+        .onAppear() {
+            UITabBar.appearance().backgroundColor = .systemBackground
         }
     }
 }

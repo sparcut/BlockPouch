@@ -38,6 +38,9 @@ struct MarketView: View {
         .onDisappear {
             marketDataController.stopFetching()
         }
+        .refreshable {
+            await marketDataController.fetchDataAsync()
+        }
     }
 }
 
