@@ -9,19 +9,25 @@ import Foundation
 import SwiftUI
 
 struct LoginView: View {
-    @EnvironmentObject private var navController: NavigationController
+    var authController = AuthenticationController()
+    @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
     @State var email: String = ""
     @State var password: String = ""
     
     var body: some View {
         VStack {
             Text("BlockPouch")
+                .font(.largeTitle)
+                .bold()
             
             TextField("Email", text: $email)
+                .textFieldStyle(.roundedBorder)
             TextField("Password", text: $password)
+                .textFieldStyle(.roundedBorder)
             Button("Login") {
-                navController.navigate(to: .main)
+                authController.authenticateLogin(email: email, password: password)
             }
+            .buttonStyle(.borderedProminent)
         }
     }
 }

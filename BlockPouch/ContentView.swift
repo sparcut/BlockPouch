@@ -11,12 +11,14 @@ import SwiftData
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @StateObject private var navController: NavigationController = NavigationController()
-
+    @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
+    
     var body: some View {
-        NavigationStack(path: $navController.path) {
-            Text("Stub")
+        if(isLoggedIn) {
+            MainView()
+        } else {
+            LoginView()
         }
-        .environmentObject(navController)
     }
 }
 
