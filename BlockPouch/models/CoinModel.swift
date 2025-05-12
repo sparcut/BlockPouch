@@ -10,15 +10,17 @@ import SwiftData
 
 @Model
 class CoinModel {
-    var assetId: String
+    var id: String
     var name: String
     var priceUSD: Double
     var priceDate: Date
+    var changeLast24h: Double
     
-    init(assetId: String, name: String, priceUSD: Double, priceDate: Date) {
-        self.assetId = assetId
+    init(id: String, name: String, priceUSD: Double, priceDate: Date, changeLast24h: Double) {
+        self.id = id
         self.name = name
         self.priceUSD = priceUSD
         self.priceDate = priceDate
+        self.changeLast24h = changeLast24h
     }
 }
