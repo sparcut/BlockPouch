@@ -9,19 +9,19 @@ import Foundation
 import SwiftUI
 
 struct PouchCoinListItem: View {
-    var ownedCoin: OwnedCoinModel
+    var ownedAsset: OwnedAssetModel
     
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
                 HStack {
-                    Text(ownedCoin.coin.name)
+                    Text(ownedAsset.asset.name)
                         .font(.headline)
-                    Text(ownedCoin.coin.id)
+                    Text(ownedAsset.asset.id)
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
-                Text("\(ownedCoin.amount, specifier: "%g")")
+                Text("\(ownedAsset.amount, specifier: "%g")")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
@@ -30,14 +30,14 @@ struct PouchCoinListItem: View {
 
             VStack(alignment: .trailing) {
                 Text(
-                    "\(ownedCoin.coin.changeLast24h >= 0 ? "+" : "")\(ownedCoin.coin.changeLast24h, specifier: "%.2f")"
+                    "\(ownedAsset.asset.changeLast24h >= 0 ? "+" : "")\(ownedAsset.asset.changeLast24h, specifier: "%.2f")"
                 )
                 .foregroundColor(
-                    ownedCoin.coin.changeLast24h >= 0 ? .green : .red
+                    ownedAsset.asset.changeLast24h >= 0 ? .green : .red
                 )
                 .bold()
 
-                Text("$\(ownedCoin.getPriceUSD(), specifier: "%.2f")")
+                Text("$\(ownedAsset.getPriceUSD(), specifier: "%.2f")")
                     .font(.caption)
             }
         }

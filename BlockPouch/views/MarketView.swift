@@ -9,27 +9,27 @@ import Foundation
 import SwiftUI
 
 struct MarketView: View {
-    @State private var coins: [CoinModel] = [
-        CoinModel(id: "BTC", name: "Bitcoin", priceUSD: 65235.84, priceDate: Date(), changeLast24h: 1629.24),
-        CoinModel(id: "ETH", name: "Ethereum", priceUSD: 2932.27, priceDate: Date(), changeLast24h: -121.79)
+    @State private var assets: [AssetModel] = [
+        AssetModel(id: "BTC", name: "Bitcoin", priceUSD: 65235.84, priceDate: Date(), changeLast24h: 1629.24),
+        AssetModel(id: "ETH", name: "Ethereum", priceUSD: 2932.27, priceDate: Date(), changeLast24h: -121.79)
     ]
     
     var body: some View {
-        List(Array(coins.enumerated()), id: \.element.id) { i, c in
+        List(Array(assets.enumerated()), id: \.element.id) { i, a in
             HStack {
                 VStack(alignment: .leading) {
-                    Text(c.name)
+                    Text(a.name)
                         .font(.headline)
-                    Text(c.id)
+                    Text(a.id)
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
                 Spacer()
                 VStack(alignment: .trailing) {
-                    Text("$\(c.priceUSD, specifier: "%.2f")")
+                    Text("$\(a.priceUSD, specifier: "%.2f")")
                         .bold()
-                    Text("\(c.changeLast24h >= 0 ? "+" : "")\(c.changeLast24h, specifier: "%.2f")")
-                        .foregroundColor(c.changeLast24h >= 0 ? .green : .red)
+                    Text("\(a.changeLast24h >= 0 ? "+" : "")\(a.changeLast24h, specifier: "%.2f")")
+                        .foregroundColor(a.changeLast24h >= 0 ? .green : .red)
                         .font(.caption)
                 }
             }

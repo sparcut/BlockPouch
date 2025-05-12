@@ -13,8 +13,8 @@ struct ContentView: View {
         let schema = Schema(
             [
                 UserModel.self,
-                CoinModel.self,
-                OwnedCoinModel.self,
+                AssetModel.self,
+                OwnedAssetModel.self,
                 TransactionModel.self,
                 PouchModel.self,
             ]

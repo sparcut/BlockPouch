@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-class CoinModel {
+class AssetModel {
     var id: String
     var name: String
     var priceUSD: Double

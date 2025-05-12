@@ -22,14 +22,14 @@ enum TransactionStatus: String, Codable {
 
 @Model
 class TransactionModel {
-    var coin: CoinModel
+    var asset: AssetModel
     var type: TransactionType
     var status: TransactionStatus
     var quantity: Double
     var priceUSD: Double
     
-    init(coin: CoinModel, type: TransactionType, status: TransactionStatus, quantity: Double, priceUSD: Double) {
-        self.coin = coin
+    init(asset: AssetModel, type: TransactionType, status: TransactionStatus, quantity: Double, priceUSD: Double) {
+        self.asset = asset
         self.type = type
         self.status = status
         self.quantity = quantity

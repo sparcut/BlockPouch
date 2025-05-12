@@ -9,22 +9,22 @@ import Foundation
 import SwiftData
 
 @Model
-class OwnedCoinModel {
-    var coin: CoinModel
+class OwnedAssetModel {
+    var asset: AssetModel
     var amount: Double
     var transactions: [TransactionModel]
     
-    init(coin: CoinModel, amount: Double, transactions: [TransactionModel]) {
-        self.coin = coin
+    init(asset: AssetModel, amount: Double, transactions: [TransactionModel]) {
+        self.asset = asset
         self.amount = amount
         self.transactions = transactions
     }
     
     func getPriceUSD() -> Double {
-        return coin.priceUSD * amount
+        return asset.priceUSD * amount
     }
     
     func getPriceChanged24h() -> Double {
-        return amount * coin.changeLast24h
+        return amount * asset.changeLast24h
     }
 }
