@@ -31,7 +31,7 @@ struct LoginView: View {
             
             TextField("Email", text: $email)
                 .textFieldStyle(.roundedBorder)
-            TextField("Password", text: $password)
+            SecureField("Password", text: $password)
                 .textFieldStyle(.roundedBorder)
             Button("Login") {
                 authController.authenticateLogin(email: email, password: password)
