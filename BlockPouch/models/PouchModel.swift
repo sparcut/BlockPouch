@@ -11,28 +11,18 @@ import SwiftData
 @Model
 class PouchModel {
     var userID: UUID
-    var ownedAssets: [OwnedAssetModel]
-    var balanceUSD: Double
+    @Relationship var ownedAssets: [OwnedAssetModel]
+    var balance: Double
     
-    init(userID: UUID, ownedAssets: [OwnedAssetModel], balanceUSD: Double) {
+    init(userID: UUID, ownedAssets: [OwnedAssetModel], balance: Double) {
         self.userID = userID
         self.ownedAssets = ownedAssets
-        self.balanceUSD = balanceUSD
+        self.balance = balance
     }
     
     init(userID: UUID) {
         self.userID = userID
         self.ownedAssets = []
-        self.balanceUSD = 0
-    }
-    
-    func getTotalCoinValue() -> Double {
-        var total: Double = 0
-        
-        for c in ownedAssets {
-            total += c.getPriceUSD()
-        }
-        
-        return total
+        self.balance = 0
     }
 }

@@ -12,15 +12,17 @@ import SwiftData
 class AssetModel {
     var id: String
     var name: String
-    var priceUSD: Double
+    var price: Double
     var priceDate: Date
-    var changeLast24h: Double
+    var priceChange24h: Double
+    var percentChange24h: Double
     
-    init(id: String, name: String, priceUSD: Double, priceDate: Date, changeLast24h: Double) {
+    init(id: String, name: String, price: Double, priceDate: Date, priceChange24h: Double, percentChange24h: Double) {
         self.id = id
         self.name = name
-        self.priceUSD = priceUSD
+        self.price = price
         self.priceDate = priceDate
-        self.changeLast24h = changeLast24h
+        self.priceChange24h = priceChange24h
+        self.percentChange24h = percentChange24h
     }
 }

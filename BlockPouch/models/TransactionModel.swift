@@ -26,13 +26,13 @@ class TransactionModel {
     var type: TransactionType
     var status: TransactionStatus
     var quantity: Double
-    var priceUSD: Double
+    var price: Double
     
-    init(asset: AssetModel, type: TransactionType, status: TransactionStatus, quantity: Double, priceUSD: Double) {
+    init(asset: AssetModel, type: TransactionType, status: TransactionStatus, quantity: Double, price: Double) {
         self.asset = asset
         self.type = type
         self.status = status
         self.quantity = quantity
-        self.priceUSD = priceUSD
+        self.price = price
     }
 }

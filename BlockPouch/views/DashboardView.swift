@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct DashboardView: View {
+    @EnvironmentObject var marketDataController: MarketDataController
     
     var body: some View {
         Text("Stub")

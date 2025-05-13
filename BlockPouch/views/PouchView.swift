@@ -9,59 +9,50 @@ import Foundation
 import SwiftUI
 
 struct PouchView: View {
-    @State private var pouchData = PouchModel(
+    @EnvironmentObject var marketDataController: MarketDataController
+    private var pouchData = PouchModel(
         userID: UUID(),
         ownedAssets: [
             OwnedAssetModel(
-                asset: AssetModel(
-                    id: "BTC", name: "Bitcoin", priceUSD: 65235.84,
-                    priceDate: Date(), changeLast24h: 1629.24),
+                assetId: "BTC",
                 amount: 2.2,
                 transactions: []
             ),
             OwnedAssetModel(
-                asset: AssetModel(
-                    id: "ETH", name: "Ethereum", priceUSD: 2932.27,
-                    priceDate: Date(), changeLast24h: -121.79),
+                assetId: "ETH",
                 amount: 10.82,
                 transactions: []
             ),
         ],
-        balanceUSD: 45.50
+        balance: 45.50
     )
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            HStack {
-                VStack(alignment: .leading) {
-                    Text("Total Assets")
-                    Text("$\(pouchData.getTotalCoinValue(), specifier: "%.2f")")
-                        .font(.title2)
-                }
-                Spacer()
-                VStack(alignment: .trailing) {
-                    Text("Balance")
-                    Text("$\(pouchData.balanceUSD, specifier: "%.2f")")
-                        .font(.title2)
-                }
-            }
-            .padding()
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(Color(.systemBackground))
-            )
-            .padding(.horizontal)
+            OwnedAssetTotalsComponent(pouchData: pouchData)
+                .environmentObject(marketDataController)
 
             List(Array(pouchData.ownedAssets.enumerated()), id: \.element.id) { i, a in
-                PouchCoinListItem(ownedAsset: a)
+                OwnedAssetComponent(ownedAsset: a)
             }
             .scrollContentBackground(.hidden)
             .padding(.top, -24)
+            .refreshable {
+                await marketDataController.fetchData()
+            }
         }
+        .navigationTitle("Pouch")
         .background(Color(.systemGroupedBackground))
+        .onAppear() {
+            Task {
+                await marketDataController.fetchData()
+            }
+        }
     }
 }
 
 #Preview {
+    let marketDataController: MarketDataController = MarketDataController(useAPI: true)
     PouchView()
+        .environmentObject(marketDataController)
 }

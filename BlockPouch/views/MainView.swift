@@ -9,23 +9,26 @@ import Foundation
 import SwiftUI
 
 struct MainView: View {
-    
+    @StateObject private var marketDataController: MarketDataController = MarketDataController(useAPI: true)
     var body: some View {
         TabView {
             DashboardView()
                 .tabItem {
                     Label("Dashboard", systemImage: "chart.bar.fill")
                 }
+                .environmentObject(marketDataController)
             
             MarketView()
                 .tabItem {
                     Label("Dashboard", systemImage: "bitcoinsign.circle")
                 }
+                .environmentObject(marketDataController)
             
             PouchView()
                 .tabItem {
                     Label("Pouch", systemImage: "handbag.fill")
                 }
+                .environmentObject(marketDataController)
             
             ProfileView()
                 .tabItem {

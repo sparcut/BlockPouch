@@ -1,5 +1,5 @@
 //
-//  OwnedCoinModel.swift
+//  OwnedAssetModel.swift
 //  BlockPouch
 //
 //  Created by Harrison on 12/5/2025.
@@ -10,21 +10,13 @@ import SwiftData
 
 @Model
 class OwnedAssetModel {
-    var asset: AssetModel
+    var assetId: String
     var amount: Double
-    var transactions: [TransactionModel]
+    @Relationship var transactions: [TransactionModel]
     
-    init(asset: AssetModel, amount: Double, transactions: [TransactionModel]) {
-        self.asset = asset
+    init(assetId: String, amount: Double, transactions: [TransactionModel]) {
+        self.assetId = assetId
         self.amount = amount
         self.transactions = transactions
-    }
-    
-    func getPriceUSD() -> Double {
-        return asset.priceUSD * amount
-    }
-    
-    func getPriceChanged24h() -> Double {
-        return amount * asset.changeLast24h
     }
 }
