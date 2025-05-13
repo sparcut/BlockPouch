@@ -15,6 +15,7 @@ struct OwnedAssetComponent: View {
 
     var body: some View {
         HStack {
+            AssetImage(imageUrl: marketDataController.assets[ownedAsset.assetId]?.image ?? "")
             VStack(alignment: .leading) {
                 HStack {
                     Text(marketDataController.assets[ownedAsset.assetId]?.name ?? ownedAsset.assetId)

@@ -14,23 +14,7 @@ struct AssetRowComponent: View {
     
     var body: some View {
         HStack {
-            Group {
-                if let url = URL(string: asset.image) {
-                    AsyncImage(url: url) { phase in
-                        switch phase {
-                        case .empty:
-                            ProgressView()
-                        case .success(let image):
-                            image
-                                .resizable()
-                                .scaledToFit()
-                        default:
-                            Image(systemName: "banknote.fill")
-                        }
-                    }
-                }
-            }
-            .frame(width: 32)
+            AssetImage(imageUrl: asset.image)
             VStack(alignment: .leading) {
                 Text(asset.name)
                     .font(.headline)

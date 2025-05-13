@@ -51,7 +51,7 @@ struct SampleDataFactory {
             id: userId,
             name: "Harrison",
             email: "harrison@gmail.com",
-            isLoggedIn: true,
+            isLoggedIn: isLoggedIn,
             pouch: pouch
         )
 
