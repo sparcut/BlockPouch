@@ -36,7 +36,7 @@ struct MainView: View {
                         Label("Pouch", systemImage: "handbag.fill")
                     }
                 
-                ProfileView()
+                ProfileView(user: $user)
                     .tabItem {
                         Label("Profile", systemImage: "person.crop.circle")
                     }
