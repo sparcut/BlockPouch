@@ -14,16 +14,20 @@ struct MarketView: View {
     @State var selectedCurrency: CurrencyModel = CurrencyModel.all[0]
     
     var body: some View {
-        VStack {
+        StackRounded(direction: StackDirection.vertical, spacing: 8) {
             CurrencySelectorComponent(selectedCurrency: $selectedCurrency)
+            
+            Divider()
+            
             List(Array(marketDataController.assets.values.sorted(by: {$0.price > $1.price})), id: \.id) { a in
                 AssetRowComponent(asset: a, currency: selectedCurrency)
             }
+            .listStyle(.plain)
             .refreshable {
                 await marketDataController.fetchData()
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding(.bottom, 8)
         .onAppear {
             marketDataController.selectedCurrency = selectedCurrency
             marketDataController.startFetching()

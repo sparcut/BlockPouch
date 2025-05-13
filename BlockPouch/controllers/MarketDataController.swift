@@ -18,6 +18,40 @@ struct CoinGeckoResponse: Decodable {
 
 @MainActor
 class MarketDataController: ObservableObject {
+    // Supported assets
+    static private let fetchIds: String = {
+        [
+            "bitcoin",
+            "ethereum",
+            "ripple",
+            "binancecoin",
+            "solana",
+            "usd-coin",
+            "dogecoin",
+            "cardano",
+            "tron",
+            "sui",
+            "chainlink",
+            "avalanche-2",
+            "stellar",
+            "shiba-inu",
+            "hedera-hashgraph",
+            "hyperliquid",
+            "pi-network",
+            "the-open-network",
+            "bitcoin-cash",
+            "leo-token",
+            "polkadot",
+            "litecoin",
+            "usds",
+            "monero",
+            "pepe",
+            "bitget-token",
+            "ethena-usde",
+            "whitebit",
+            "uniswap"
+        ].joined(separator: ",")
+    }()
     private var useAPI: Bool = true
     private var timer: Timer?
     private var isAutoFetching: Bool = false
@@ -63,8 +97,8 @@ class MarketDataController: ObservableObject {
         defer { self.isFetching = false }
         
         if(self.useAPI) {
-            let fetchURL: URL = URL(string: "https://api.coingecko.com/api/v3/coins/markets?vs_currency=\(selectedCurrency.id.lowercased())&ids=bitcoin,ethereum,ripple,binancecoin,solana,usd-coin,dogecoin,cardano,tron&sparkline=false")!
-            
+            let fetchURL: URL = URL(string: "https://api.coingecko.com/api/v3/coins/markets?vs_currency=\(selectedCurrency.id.lowercased())&ids=\(MarketDataController.fetchIds)&sparkline=false")!
+            //bitcoin,ethereum,ripple,binancecoin,solana,usd-coin,dogecoin,cardano,tron
             var req = URLRequest(url: fetchURL)
             req.setValue("application/json", forHTTPHeaderField: "Accept")
             

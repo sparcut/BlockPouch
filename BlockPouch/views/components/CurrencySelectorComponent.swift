@@ -20,6 +20,9 @@ struct CurrencySelectorComponent: View {
                 }
             }
             .pickerStyle(.menu)
+            .padding(.horizontal)
+            .background(Color(.systemBackground))
+            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
         }
     }
 }

@@ -17,6 +17,7 @@ struct StackRounded<Content: View>: View {
     let direction: StackDirection
     let spacing: CGFloat
     let content: () -> Content
+    
     init(direction: StackDirection, spacing: CGFloat? = nil, @ViewBuilder content: @escaping () -> Content) {
         self.direction = direction
         self.spacing = spacing ?? 8
@@ -41,5 +42,6 @@ struct StackRounded<Content: View>: View {
                 .fill(Color(.systemBackground))
         )
         .padding(.horizontal)
+        .frame(maxHeight: .infinity, alignment: .top)
     }
 }
