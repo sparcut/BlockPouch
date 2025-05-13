@@ -29,7 +29,7 @@ struct PouchView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            OwnedAssetTotalsComponent(pouchData: pouchData)
+            PouchOverviewComponent(pouchData: pouchData)
                 .environmentObject(marketDataController)
 
             List(Array(pouchData.ownedAssets.enumerated()), id: \.element.id) { i, a in
@@ -41,7 +41,7 @@ struct PouchView: View {
                 await marketDataController.fetchData()
             }
         }
-        .navigationTitle("Pouch")
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(.systemGroupedBackground))
         .onAppear() {
             Task {

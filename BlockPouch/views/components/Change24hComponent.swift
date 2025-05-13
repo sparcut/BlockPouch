@@ -11,7 +11,7 @@ import SwiftUI
 struct Change24hComponent: View {
     let amount: Double
     let percent: Double
-    let currency: Locale.Currency
+    let currency: CurrencyModel
     
     var body: some View {
         var changeIcon: Image? = nil
@@ -41,7 +41,7 @@ struct Change24hComponent: View {
 }
 
 #Preview {
-    let currency: Locale.Currency = Locale.Currency("USD")
+    let currency: CurrencyModel = CurrencyModel.all[0]
     Change24hComponent(amount: 299900, percent: 2.320, currency: currency)
     Change24hComponent(amount: -10, percent: -2.320, currency: currency)
 }

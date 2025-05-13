@@ -24,7 +24,7 @@ class MarketDataController: ObservableObject {
     private var isFetching: Bool = false
     private var lastFetch: Date?
     @Published var assets: [String: AssetModel] = [:]
-    @Published var selectedCurrency: Locale.Currency = Locale.Currency("USD") {
+    @Published var selectedCurrency: CurrencyModel = CurrencyModel.all[0] {
         didSet {
             Task {
                 await fetchData()
@@ -73,27 +73,33 @@ class MarketDataController: ObservableObject {
         defer { self.isFetching = false }
         
         if(self.useAPI) {
-            let fetchURL: URL = URL(string: "https://api.coingecko.com/api/v3/coins/markets?vs_currency=\(selectedCurrency.identifier.lowercased())&ids=bitcoin,ethereum,ripple,binancecoin,solana,usd-coin,dogecoin,cardano,tron&sparkline=false")!
+            let fetchURL: URL = URL(string: "https://api.coingecko.com/api/v3/coins/markets?vs_currency=\(selectedCurrency.id.lowercased())&ids=bitcoin,ethereum,ripple,binancecoin,solana,usd-coin,dogecoin,cardano,tron&sparkline=false")!
             
             var req = URLRequest(url: fetchURL)
             req.setValue("application/json", forHTTPHeaderField: "Accept")
             
             do {
                 let (data, _) = try await URLSession.shared.data(for: req)
-                let decodedJson = try JSONDecoder().decode([CoinGeckoResponse].self, from: data)
                 
-                for fetchedAsset in decodedJson {
-                    let assetId = fetchedAsset.symbol.uppercased()
+                do {
+                    let decodedJson = try JSONDecoder().decode([CoinGeckoResponse].self, from: data)
                     
-                    self.assets[assetId] = AssetModel(
-                        id: assetId,
-                        name: fetchedAsset.name,
-                        price: fetchedAsset.current_price,
-                        priceDate: Date(),
-                        priceChange24h: fetchedAsset.price_change_24h ?? 0,
-                        percentChange24h: fetchedAsset.price_change_percentage_24h ?? 0
-                    )
+                    for fetchedAsset in decodedJson {
+                        let assetId = fetchedAsset.symbol.uppercased()
+                        
+                        self.assets[assetId] = AssetModel(
+                            id: assetId,
+                            name: fetchedAsset.name,
+                            price: fetchedAsset.current_price,
+                            priceDate: Date(),
+                            priceChange24h: fetchedAsset.price_change_24h ?? 0,
+                            percentChange24h: fetchedAsset.price_change_percentage_24h ?? 0
+                        )
+                    }
+                } catch {
+                    print("Error from API: \(String(bytes: data, encoding: String.Encoding.utf8) ?? "<Unreadable>")")
                 }
+                
             } catch {
                 print("Error decoding Coin API Data: \(error)")
             }

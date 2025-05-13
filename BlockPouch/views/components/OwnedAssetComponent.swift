@@ -11,7 +11,7 @@ import SwiftUI
 struct OwnedAssetComponent: View {
     @EnvironmentObject var marketDataController: MarketDataController
     var ownedAsset: OwnedAssetModel
-    private let currency: Locale.Currency = Locale.Currency("USD")
+    private let currency: CurrencyModel = CurrencyModel.all[0]
 
     var body: some View {
         HStack {

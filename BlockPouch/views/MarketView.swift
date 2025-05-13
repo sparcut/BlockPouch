@@ -10,41 +10,43 @@ import SwiftUI
 
 struct MarketView: View {
     @EnvironmentObject var marketDataController: MarketDataController
-    @State var selectedCurrency: Locale.Currency = Locale.Currency("USD")
+    @State var selectedCurrency: CurrencyModel = CurrencyModel.all[0]
     
     var body: some View {
-        CurrencySelectorComponent(selectedCurrency: $selectedCurrency)
-        List(Array(marketDataController.assets.values.sorted(by: {$0.price > $1.price})), id: \.id) { a in
-            HStack {
-                VStack(alignment: .leading) {
-                    Text(a.name)
-                        .font(.headline)
-                    Text(a.id)
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                }
-                Spacer()
-                VStack(alignment: .trailing) {
-                    Text(a.price.asCurrency(using: selectedCurrency))
-                        .bold()
-                    Change24hComponent(amount: a.priceChange24h, percent: a.percentChange24h, currency: selectedCurrency)
-                        .font(.caption)
+        VStack {
+            CurrencySelectorComponent(selectedCurrency: $selectedCurrency)
+            List(Array(marketDataController.assets.values.sorted(by: {$0.price > $1.price})), id: \.id) { a in
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(a.name)
+                            .font(.headline)
+                        Text(a.id)
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                    }
+                    Spacer()
+                    VStack(alignment: .trailing) {
+                        Text(a.price.asCurrency(using: selectedCurrency))
+                            .bold()
+                        Change24hComponent(amount: a.priceChange24h, percent: a.percentChange24h, currency: selectedCurrency)
+                            .font(.caption)
+                    }
                 }
             }
+            .refreshable {
+                await marketDataController.fetchData()
+            }
         }
-        .navigationTitle("Market")
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .onAppear {
             marketDataController.selectedCurrency = selectedCurrency
             marketDataController.startFetching()
         }
-        .onDisappear {
-            marketDataController.stopFetching()
-        }
-        .refreshable {
-            await marketDataController.fetchData()
-        }
         .onChange(of: selectedCurrency) {
             marketDataController.selectedCurrency = selectedCurrency
+        }
+        .onDisappear {
+            marketDataController.stopFetching()
         }
     }
 }

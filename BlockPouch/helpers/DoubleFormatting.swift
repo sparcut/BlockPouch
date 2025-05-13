@@ -8,18 +8,23 @@
 import Foundation
 
 extension Double {
-    func asCurrency(using: Locale.Currency, useSymbol: Bool? = nil) -> String {
+    func asCurrency(using: CurrencyModel, useSymbol: Bool? = nil) -> String {
         let useSymbol = useSymbol ?? true
         
         let formatter: NumberFormatter = NumberFormatter()
         formatter.numberStyle = .decimal
-        formatter.locale = Locale(identifier: "en_US")
         formatter.minimumFractionDigits = 2
         formatter.maximumFractionDigits = 2
-        let symbol: String = useSymbol ? (formatter.currencySymbol ?? "") : ""
+        formatter.locale = using.locale
+        formatter.currencyCode = using.id
         
-        return "\(symbol + " ")\(formatter.string(from: NSNumber(value: self)) ?? "\(self)")"
-        /*return self.formatted(.currency(code: using.identifier).locale(Locale(identifier: "en_US")))*/
+        if(useSymbol) {
+            formatter.numberStyle = .currency
+        } else {
+            formatter.numberStyle = .decimal
+        }
+        
+        return formatter.string(from: NSNumber(value: self)) ?? "\(self)"
     }
     
     func asPercentage() -> String {

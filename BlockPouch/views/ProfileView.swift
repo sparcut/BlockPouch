@@ -11,7 +11,11 @@ import SwiftUI
 struct ProfileView: View {
     
     var body: some View {
-        Text("Stub")
+        VStack {
+            Text("Stub")
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(.systemGroupedBackground))
     }
 
 }

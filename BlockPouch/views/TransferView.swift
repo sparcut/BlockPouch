@@ -6,3 +6,15 @@
 //
 
 import Foundation
+import SwiftUI
+
+struct TransferView: View {
+    
+    var body: some View {
+        VStack {
+            Text("Stub")
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(.systemGroupedBackground))
+    }
+}
