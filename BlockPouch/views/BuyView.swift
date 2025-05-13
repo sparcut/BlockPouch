@@ -12,7 +12,7 @@ struct BuyView: View {
     
     var body: some View {
         VStack {
-            Text("coming soon")
+            Text("Coming soon")
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(.systemGroupedBackground))

@@ -98,7 +98,7 @@ class MarketDataController: ObservableObject {
         
         if(self.useAPI) {
             let fetchURL: URL = URL(string: "https://api.coingecko.com/api/v3/coins/markets?vs_currency=\(selectedCurrency.id.lowercased())&ids=\(MarketDataController.fetchIds)&sparkline=false")!
-            //bitcoin,ethereum,ripple,binancecoin,solana,usd-coin,dogecoin,cardano,tron
+
             var req = URLRequest(url: fetchURL)
             req.setValue("application/json", forHTTPHeaderField: "Accept")
             
