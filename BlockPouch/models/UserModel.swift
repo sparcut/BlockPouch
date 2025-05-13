@@ -13,15 +13,30 @@ class UserModel: ObservableObject {
     @Attribute(.unique) var id: UUID
     @Attribute(.unique) var email: String
     var name: String
-    var pouch: PouchModel?
-    var loggedIn: Bool
+    var isLoggedIn: Bool
+    @Relationship var pouch: PouchModel
     
-    
-    init(id: UUID, name: String, email: String, loggedIn: Bool) {
-        self.id = id
+    init(name: String, email: String, isLoggedIn: Bool) {
+        let newId = UUID()
+        self.id = newId
         self.name = name
         self.email = email
-        self.pouch = PouchModel(userID: id)
-        self.loggedIn = loggedIn
+        self.pouch = PouchModel(
+            userID: newId,
+            ownedAssets: [
+                OwnedAssetModel(
+                    assetId: "BTC",
+                    amount: 2.2,
+                    transactions: []
+                ),
+                OwnedAssetModel(
+                    assetId: "ETH",
+                    amount: 10.82,
+                    transactions: []
+                ),
+            ],
+            balance: 45.50
+        )
+        self.isLoggedIn = isLoggedIn
     }
 }

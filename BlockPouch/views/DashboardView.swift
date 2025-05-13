@@ -9,28 +9,13 @@ import Foundation
 import SwiftUI
 
 struct DashboardView: View {
-    @EnvironmentObject var marketDataController: MarketDataController
-    private var pouchData = PouchModel(
-        userID: UUID(),
-        ownedAssets: [
-            OwnedAssetModel(
-                assetId: "BTC",
-                amount: 2.2,
-                transactions: []
-            ),
-            OwnedAssetModel(
-                assetId: "ETH",
-                amount: 10.82,
-                transactions: []
-            ),
-        ],
-        balance: 45.50
-    )
+    @EnvironmentObject private var marketDataController: MarketDataController
+    @Bindable var pouch: PouchModel
     
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                PouchOverviewComponent(pouchData: pouchData)
+                PouchOverviewComponent(pouch: pouch)
                     .environmentObject(marketDataController)
             }
             
@@ -66,6 +51,7 @@ struct DashboardView: View {
 
 #Preview {
     let marketDataController: MarketDataController = MarketDataController(useAPI: true)
-    DashboardView()
+    let user: UserModel = UserModel(name: "Harrison", email: "harrison@gmail.com", isLoggedIn: true)
+    DashboardView(pouch: user.pouch)
         .environmentObject(marketDataController)
 }

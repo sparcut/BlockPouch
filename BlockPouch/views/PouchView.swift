@@ -9,30 +9,15 @@ import Foundation
 import SwiftUI
 
 struct PouchView: View {
-    @EnvironmentObject var marketDataController: MarketDataController
-    private var pouchData = PouchModel(
-        userID: UUID(),
-        ownedAssets: [
-            OwnedAssetModel(
-                assetId: "BTC",
-                amount: 2.2,
-                transactions: []
-            ),
-            OwnedAssetModel(
-                assetId: "ETH",
-                amount: 10.82,
-                transactions: []
-            ),
-        ],
-        balance: 45.50
-    )
+    @EnvironmentObject private var marketDataController: MarketDataController
+    @Bindable var pouch: PouchModel
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            PouchOverviewComponent(pouchData: pouchData)
+            PouchOverviewComponent(pouch: pouch)
                 .environmentObject(marketDataController)
 
-            List(Array(pouchData.ownedAssets.enumerated()), id: \.element.id) { i, a in
+            List(Array(pouch.ownedAssets.enumerated()), id: \.element.id) { i, a in
                 OwnedAssetComponent(ownedAsset: a)
             }
             .scrollContentBackground(.hidden)
@@ -53,6 +38,7 @@ struct PouchView: View {
 
 #Preview {
     let marketDataController: MarketDataController = MarketDataController(useAPI: true)
-    PouchView()
+    let user: UserModel = UserModel(name: "Harrison", email: "harrison@gmail.com", isLoggedIn: true)
+    PouchView(pouch: user.pouch)
         .environmentObject(marketDataController)
 }

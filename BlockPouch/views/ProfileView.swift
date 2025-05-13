@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct ProfileView: View {
+    @EnvironmentObject private var user: UserModel
     
     var body: some View {
         VStack {

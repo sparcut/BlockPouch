@@ -9,7 +9,8 @@ import Foundation
 import SwiftUI
 
 struct MarketView: View {
-    @EnvironmentObject var marketDataController: MarketDataController
+    @EnvironmentObject private var marketDataController: MarketDataController
+    @EnvironmentObject private var user: UserModel
     @State var selectedCurrency: CurrencyModel = CurrencyModel.all[0]
     
     var body: some View {

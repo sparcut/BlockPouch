@@ -9,12 +9,13 @@ import Foundation
 import SwiftUI
 
 struct MainView: View {
+    @Bindable var user: UserModel
     @StateObject private var marketDataController: MarketDataController = MarketDataController(useAPI: true)
     
     var body: some View {
         NavigationStack {
             TabView {
-                DashboardView()
+                DashboardView(pouch: user.pouch)
                     .environmentObject(marketDataController)
                     .background(Color(.systemGroupedBackground))
                     .tabItem {
@@ -28,7 +29,7 @@ struct MainView: View {
                         Label("Market", systemImage: "bitcoinsign.circle")
                     }
                 
-                PouchView()
+                PouchView(pouch: user.pouch)
                     .environmentObject(marketDataController)
                     .background(Color(.systemGroupedBackground))
                     .tabItem {
@@ -39,6 +40,7 @@ struct MainView: View {
                     .tabItem {
                         Label("Profile", systemImage: "person.crop.circle")
                     }
+                    .environmentObject(user)
             }
             .onAppear() {
                 UITabBar.appearance().backgroundColor = .systemBackground
@@ -48,5 +50,6 @@ struct MainView: View {
 }
 		
 #Preview {
-    MainView()
+    let user: UserModel = UserModel(name: "Harrison", email: "harrison@gmail.com", isLoggedIn: true)
+    MainView(user: user)
 }

@@ -22,13 +22,16 @@ struct ContentView: View {
         let config = ModelConfiguration(schema: schema)
         return try! ModelContainer(for: schema, configurations: [config])
     }()
-    @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
+    
+    @StateObject private var user: UserModel = UserModel(name: "Harrison", email: "harrison@gmail.com", isLoggedIn: true)
     
     var body: some View {
-        if(isLoggedIn) {
-            MainView().modelContainer(modelContainer)
+        if(user.isLoggedIn) {
+            MainView(user: user)
+                .modelContainer(modelContainer)
         } else {
             LoginView()
+                .modelContainer(modelContainer)
         }
     }
 }
