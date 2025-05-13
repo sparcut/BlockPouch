@@ -12,7 +12,11 @@ import SwiftData
 struct BlockPouchApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            UserModel.self
+            AssetModel.self,
+            OwnedAssetModel.self,
+            PouchModel.self,
+            TransactionModel.self,
+            UserModel.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 

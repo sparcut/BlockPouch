@@ -33,7 +33,7 @@ struct Change24hComponent: View {
         }
         
         if let fontColor: Color {
-            return AnyView(content.foregroundColor(fontColor))
+            return AnyView(content.foregroundStyle(fontColor))
         } else {
             return AnyView(content)
         }

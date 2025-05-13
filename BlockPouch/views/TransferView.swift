@@ -12,7 +12,7 @@ struct TransferView: View {
     
     var body: some View {
         VStack {
-            Text("Stub")
+            Text("Coming Soon")
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(.systemGroupedBackground))

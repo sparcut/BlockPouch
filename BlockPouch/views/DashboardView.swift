@@ -7,37 +7,52 @@
 
 import Foundation
 import SwiftUI
+import SwiftData
 
 struct DashboardView: View {
     @EnvironmentObject private var marketDataController: MarketDataController
-    @Bindable var pouch: PouchModel
+    @Bindable var user: UserModel
+    private let currency: CurrencyModel = CurrencyModel.all[0]
     
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                PouchOverviewComponent(pouch: pouch)
+                PouchOverviewComponent(user: user)
                     .environmentObject(marketDataController)
             }
             
-            HStack(spacing: 16) {
+            StackRounded(direction: StackDirection.horizontal) {
                 NavigationLink(destination: TransferView()) {
                     ActionButton(title: "Trasfer", icon: "arrow.left.arrow.right")
                 }
                 
-                NavigationLink(destination: Text("Stub")) {
+                NavigationLink(destination: Text("Coming Soon")) {
                     ActionButton(title: "Add Funds", icon: "plus")
                 }
                 
-                NavigationLink(destination: Text("Stub")) {
+                NavigationLink(destination: Text("Coming Soon")) {
                     ActionButton(title: "Widthdraw", icon: "arrow.down")
                 }
             }
-            .padding()
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(Color(.systemBackground))
-            )
-            .padding(.horizontal)
+            
+            StackRounded(direction: StackDirection.vertical, spacing: 0) {
+                Text("Recent Transactions")
+                    .font(.title2)
+                
+                ForEach(user.pouch.getAllTransactions().prefix(3), id: \.id) { trans in
+                    TransactionRow(transaction: trans, currency: currency)
+                }
+            }
+            
+            StackRounded(direction: StackDirection.vertical) {
+                Text("Market Watch")
+                    .font(.title2)
+                Text("Top 5")
+                    .font(.subheadline)
+                ForEach(marketDataController.assets.values.sorted(by: { $0.price > $1.price }).prefix(5), id: \ .id) { asset in
+                    AssetRowComponent(asset: asset, currency: currency)
+                }
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(.systemGroupedBackground))
@@ -49,9 +64,9 @@ struct DashboardView: View {
     }
 }
 
-#Preview {
-    let marketDataController: MarketDataController = MarketDataController(useAPI: true)
-    let user: UserModel = UserModel(name: "Harrison", email: "harrison@gmail.com", isLoggedIn: true)
-    DashboardView(pouch: user.pouch)
-        .environmentObject(marketDataController)
-}
+//#Preview {
+//    let marketDataController: MarketDataController = MarketDataController(useAPI: true)
+//    let user = SampleDataFactory.makeUserModel()
+//    DashboardView(user: $user)
+//        .environmentObject(marketDataController)
+//}

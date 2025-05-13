@@ -25,4 +25,16 @@ class PouchModel {
         self.ownedAssets = []
         self.balance = 0
     }
+    
+    func getAllTransactions() -> [TransactionModel] {
+        var transactions: [TransactionModel] = []
+        
+        for oA in ownedAssets {
+            for tran in oA.transactions {
+                transactions.append(tran)
+            }
+        }
+        
+        return (transactions.sorted { $0.date > $1.date })
+    }
 }

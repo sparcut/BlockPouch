@@ -10,29 +10,14 @@ import SwiftUI
 
 struct MarketView: View {
     @EnvironmentObject private var marketDataController: MarketDataController
-    @EnvironmentObject private var user: UserModel
+    @Bindable var user: UserModel
     @State var selectedCurrency: CurrencyModel = CurrencyModel.all[0]
     
     var body: some View {
         VStack {
             CurrencySelectorComponent(selectedCurrency: $selectedCurrency)
             List(Array(marketDataController.assets.values.sorted(by: {$0.price > $1.price})), id: \.id) { a in
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text(a.name)
-                            .font(.headline)
-                        Text(a.id)
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                    }
-                    Spacer()
-                    VStack(alignment: .trailing) {
-                        Text(a.price.asCurrency(using: selectedCurrency))
-                            .bold()
-                        Change24hComponent(amount: a.priceChange24h, percent: a.percentChange24h, currency: selectedCurrency)
-                            .font(.caption)
-                    }
-                }
+                AssetRowComponent(asset: a, currency: selectedCurrency)
             }
             .refreshable {
                 await marketDataController.fetchData()
@@ -52,8 +37,8 @@ struct MarketView: View {
     }
 }
 
-#Preview {
-    let marketDataController: MarketDataController = MarketDataController(useAPI: true)
-    MarketView()
-        .environmentObject(marketDataController)
-}
+//#Preview {
+//    let marketDataController: MarketDataController = MarketDataController(useAPI: true)
+//    MarketView()
+//        .environmentObject(marketDataController)
+//}

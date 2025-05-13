@@ -7,10 +7,11 @@
 
 import Foundation
 import SwiftUI
+import SwiftData
 
 struct LoginView: View {
     var authController = AuthenticationController()
-    @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
+    @Binding var user: UserModel
     @State var email: String = ""
     @State var password: String = ""
     
@@ -34,7 +35,7 @@ struct LoginView: View {
             SecureField("Password", text: $password)
                 .textFieldStyle(.roundedBorder)
             Button("Login") {
-                authController.authenticateLogin(email: email, password: password)
+                user.isLoggedIn = authController.authenticateLogin(email: email, password: password)
             }
             .buttonStyle(.borderedProminent)
         }
@@ -42,7 +43,8 @@ struct LoginView: View {
     }
 }
 
-#Preview {
-    LoginView()
-}
-	
+//#Preview {
+//    let user: AppUserModel = SampleDataFactory.makeUserModel()
+//    LoginView(user: $user)
+//}
+//	

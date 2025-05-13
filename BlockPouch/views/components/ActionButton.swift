@@ -19,9 +19,9 @@ struct ActionButton: View {
                 .padding()
                 .background(Color.blue.opacity(0.3))
                 .clipShape(Circle())
-                .foregroundColor(.primary)
+                .foregroundStyle(.primary)
             Text(title)
-                .foregroundColor(.primary)
+                .foregroundStyle(.primary)
         }
     }
 }

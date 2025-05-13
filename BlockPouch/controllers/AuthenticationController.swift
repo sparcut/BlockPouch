@@ -9,12 +9,10 @@ import Foundation
 import SwiftUI
 
 class AuthenticationController {
-    @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
-    
-    func authenticateLogin(email: String, password: String) {
+    func authenticateLogin(email: String, password: String) -> Bool {
         // Connect and authenticate credentials
         
-        // Set value of login
-        isLoggedIn = true
+        // Return status
+        return true
     }
 }

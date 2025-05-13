@@ -10,7 +10,7 @@ import SwiftUI
 
 struct PouchOverviewComponent: View {
     @EnvironmentObject var marketDataController: MarketDataController
-    @Bindable var pouch: PouchModel
+    @Bindable var user: UserModel
     private let currency: CurrencyModel = CurrencyModel.all[0]
         
     var body: some View {
@@ -21,7 +21,7 @@ struct PouchOverviewComponent: View {
             HStack {
                 VStack(alignment: .leading) {
                     let (totalAssets, totalPriceChange24h, totalPercentChange24h) =
-                    pouch.ownedAssets.reduce(into: (0, 0, 0)) { result, owned in
+                    user.pouch.ownedAssets.reduce(into: (0, 0, 0)) { result, owned in
                         if let asset = marketDataController.assets[owned.assetId] {
                             result.0 += asset.price * owned.amount
                             result.1 += asset.priceChange24h * owned.amount
@@ -40,7 +40,7 @@ struct PouchOverviewComponent: View {
                 
                 VStack(alignment: .trailing) {
                     Text("Balance")
-                    Text(pouch.balance.asCurrency(using: currency))
+                    Text(user.pouch.balance.asCurrency(using: currency))
                         .font(.title2)
                 }
             

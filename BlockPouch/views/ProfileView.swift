@@ -9,11 +9,10 @@ import Foundation
 import SwiftUI
 
 struct ProfileView: View {
-    @EnvironmentObject private var user: UserModel
     
     var body: some View {
         VStack {
-            Text("Stub")
+            Text("Coming soon")
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(.systemGroupedBackground))

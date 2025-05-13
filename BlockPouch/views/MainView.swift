@@ -9,27 +9,27 @@ import Foundation
 import SwiftUI
 
 struct MainView: View {
-    @Bindable var user: UserModel
+    @Binding var user: UserModel
     @StateObject private var marketDataController: MarketDataController = MarketDataController(useAPI: true)
     
     var body: some View {
         NavigationStack {
             TabView {
-                DashboardView(pouch: user.pouch)
+                DashboardView(user: user)
                     .environmentObject(marketDataController)
                     .background(Color(.systemGroupedBackground))
                     .tabItem {
                         Label("Dashboard", systemImage: "chart.bar.fill")
                     }
                 
-                MarketView()
+                MarketView(user: user)
                     .environmentObject(marketDataController)
                     .background(Color(.systemGroupedBackground))
                     .tabItem {
                         Label("Market", systemImage: "bitcoinsign.circle")
                     }
                 
-                PouchView(pouch: user.pouch)
+                PouchView(user: user)
                     .environmentObject(marketDataController)
                     .background(Color(.systemGroupedBackground))
                     .tabItem {
@@ -40,7 +40,6 @@ struct MainView: View {
                     .tabItem {
                         Label("Profile", systemImage: "person.crop.circle")
                     }
-                    .environmentObject(user)
             }
             .onAppear() {
                 UITabBar.appearance().backgroundColor = .systemBackground
@@ -50,6 +49,13 @@ struct MainView: View {
 }
 		
 #Preview {
-    let user: UserModel = UserModel(name: "Harrison", email: "harrison@gmail.com", isLoggedIn: true)
-    MainView(user: user)
+    let user = SampleDataFactory.makeUserModel()
+    MainView(user: .constant(user))
+        .modelContainer(for: [
+            AssetModel.self,
+            OwnedAssetModel.self,
+            PouchModel.self,
+            TransactionModel.self,
+            UserModel.self,
+        ])
 }

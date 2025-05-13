@@ -7,17 +7,18 @@
 
 import Foundation
 import SwiftUI
+import SwiftData
 
 struct PouchView: View {
     @EnvironmentObject private var marketDataController: MarketDataController
-    @Bindable var pouch: PouchModel
+    @Bindable var user: UserModel
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            PouchOverviewComponent(pouch: pouch)
+            PouchOverviewComponent(user: user)
                 .environmentObject(marketDataController)
 
-            List(Array(pouch.ownedAssets.enumerated()), id: \.element.id) { i, a in
+            List(Array(user.pouch.ownedAssets.enumerated()), id: \.element.id) { i, a in
                 OwnedAssetComponent(ownedAsset: a)
             }
             .scrollContentBackground(.hidden)
@@ -36,9 +37,20 @@ struct PouchView: View {
     }
 }
 
-#Preview {
-    let marketDataController: MarketDataController = MarketDataController(useAPI: true)
-    let user: UserModel = UserModel(name: "Harrison", email: "harrison@gmail.com", isLoggedIn: true)
-    PouchView(pouch: user.pouch)
-        .environmentObject(marketDataController)
-}
+//#Preview {
+//    struct PreviewWrapper: View {
+//        @State private var user = SampleDataFactory.makeUserModel()
+//        
+//        var test: Binding<AppUserModel> {
+//            _ = $user
+//        }
+//        
+//        
+//        var body: some View {
+//            PouchView(user: $user)
+//                .environmentObject(MarketDataController(useAPI: false))
+//        }
+//    }
+//    
+//    return PreviewWrapper().modelContainer(for: [AppUserModel.self, PouchModel.self, OwnedAssetModel.self, TransactionModel.self])
+//}
