@@ -15,21 +15,21 @@ struct MainView: View {
     var body: some View {
         NavigationStack {
             TabView {
-                DashboardView(user: user)
+                DashboardView(user: $user)
                     .environmentObject(marketDataController)
                     .background(Color(.systemGroupedBackground))
                     .tabItem {
                         Label("Dashboard", systemImage: "chart.bar.fill")
                     }
                 
-                MarketView(user: user)
+                MarketView(user: $user)
                     .environmentObject(marketDataController)
                     .background(Color(.systemGroupedBackground))
                     .tabItem {
                         Label("Market", systemImage: "bitcoinsign.circle")
                     }
                 
-                PouchView(user: user)
+                PouchView(user: $user)
                     .environmentObject(marketDataController)
                     .background(Color(.systemGroupedBackground))
                     .tabItem {

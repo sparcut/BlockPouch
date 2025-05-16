@@ -11,7 +11,7 @@ import SwiftData
 
 struct PouchView: View {
     @EnvironmentObject private var marketDataController: MarketDataController
-    @Bindable var user: UserModel
+    @Binding var user: UserModel
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {

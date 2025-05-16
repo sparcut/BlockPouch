@@ -10,7 +10,7 @@ import SwiftUI
 
 struct MarketView: View {
     @EnvironmentObject private var marketDataController: MarketDataController
-    @Bindable var user: UserModel
+    @Binding var user: UserModel
     @State var selectedCurrency: CurrencyModel = CurrencyModel.all[0]
     
     var body: some View {
